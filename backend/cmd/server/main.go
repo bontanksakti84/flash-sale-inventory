@@ -117,7 +117,12 @@ func main() {
 
 	api := &API{db: db, cfg: cfg}
 	workerCtx, stopWorker := context.WithCancel(context.Background())
-	go api.expiryWorker(workerCtx)
+	workerDone := make(chan struct{})
+
+	go func() {
+		defer close(workerDone)
+		api.expiryWorker(workerCtx)
+	}()
 
 	gin.SetMode(env("GIN_MODE", gin.ReleaseMode))
 	router := gin.New()
@@ -161,8 +166,21 @@ func main() {
 	if err := srv.Shutdown(shutdownCtx); err != nil {
 		log.Printf("HTTP shutdown: %v", err)
 	}
+
 	stopWorker()
-	db.Close()
+
+	// Wait for the expiry worker before closing the database.
+	select {
+	case <-workerDone:
+		log.Println("expiry worker stopped")
+	case <-time.After(5 * time.Second):
+		log.Println("expiry worker shutdown wait timed out")
+	}
+
+	if err := db.Close(); err != nil {
+		log.Printf("database close: %v", err)
+	}
+
 	log.Println("shutdown complete")
 }
 
