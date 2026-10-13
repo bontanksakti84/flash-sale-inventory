@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: inventory
+      POSTGRES_USER: inventory
+      POSTGRES_PASSWORD: inventory_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+      - ./backend/migrations/002_reservation_idempotency.sql:/docker-entrypoint-initdb.d/002_reservation_idempotency.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inventory -d inventory"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    environment:
+      APP_ADDR: ":8080"
+      DATABASE_URL: "postgres://inventory:inventory_dev_password@postgres:5432/inventory?sslmode=disable"
+      DB_MAX_OPEN_CONNS: "20"
+      DB_MAX_IDLE_CONNS: "10"
+      EXPIRY_INTERVAL: "2s"
+      RESERVATION_TTL: "5m"
+      CORS_ORIGIN: "http://localhost:5173"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: "http://localhost:8080"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
