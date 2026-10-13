@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{font-family:'DM Sans',sans-serif;color:#e8eef7;background:#0b1220;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+body{margin:0;min-width:320px;background:#0b1220}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.48;cursor:not-allowed}
+.sidebar{position:fixed;inset:0 auto 0 0;width:236px;padding:26px 16px;background:#0a101c;border-right:1px solid #1b293d;display:flex;flex-direction:column;z-index:5}
+.brand-mark{width:37px;height:37px;display:grid;place-items:center;border-radius:11px;color:#071b19;background:#5ee0b5;float:left}
+.brand-copy{position:absolute;top:27px;left:64px;display:flex;flex-direction:column;gap:4px;letter-spacing:.12em}
+.brand-copy strong{font-size:12px;font-weight:800;color:#f2f6fb}
+.brand-copy span{font-size:9px;color:#71819a;letter-spacing:.18em}
+.sidebar-rule{height:1px;background:#1c293a;margin:29px 0 22px}
+.side-item{height:44px;padding:0 12px;display:flex;align-items:center;gap:12px;color:#8190a6;font-size:12px;border-radius:9px;margin-bottom:6px}
+.side-item.active{background:#142c30;color:#78e5c2;box-shadow:inset 2px 0 #5ee0b5}
+.side-count{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;color:#5ee0b5}
+.sidebar-bottom{margin-top:auto;padding:13px 10px;border:1px solid #203046;border-radius:10px;display:flex;gap:10px;align-items:flex-start}
+.sidebar-bottom div:last-child{display:flex;flex-direction:column;gap:4px}
+.sidebar-bottom strong{font-size:11px;font-weight:600}
+.sidebar-bottom span{font-size:10px;color:#75849a}
+.status-dot,.footer-dot{width:7px;height:7px;border-radius:50%;background:#5ee0b5;box-shadow:0 0 12px #5ee0b566;display:inline-block;flex:none;margin-top:4px}
+.main-content{margin-left:236px;min-height:100vh}
+.topbar{height:70px;border-bottom:1px solid #1b293d;padding:0 38px;display:flex;align-items:center;justify-content:space-between;background:#0c1422}
+.breadcrumb{display:flex;gap:10px;font-size:12px;color:#72819a}
+.breadcrumb .slash{color:#3c4a60}
+.breadcrumb strong{color:#cbd5e1;font-weight:500}
+.topbar-right{display:flex;align-items:center;gap:16px}
+.env-pill{border:1px solid #29413f;background:#122b2b;color:#80dfc0;border-radius:5px;padding:6px 8px;font:9px 'DM Mono',monospace;letter-spacing:.06em}
+.env-pill span{display:inline-block;width:5px;height:5px;border-radius:50%;background:#5ee0b5;margin-right:6px;vertical-align:middle}
+.avatar{width:30px;height:30px;border-radius:50%;background:#24344b;display:grid;place-items:center;font-size:11px;font-weight:700;color:#cbd5e1}
+.page-wrap{max-width:1400px;margin:0 auto;padding:36px 38px 24px}
+.page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:27px}
+.eyebrow,.section-kicker{font:10px 'DM Mono',monospace;letter-spacing:.14em;color:#6e829e}
+.eyebrow{display:flex;align-items:center;gap:7px;color:#5ee0b5;margin-bottom:12px}
+h1,h2,p{margin:0}
+h1{font-family:Manrope,sans-serif;font-size:32px;letter-spacing:-.055em;line-height:1.2;font-weight:700}
+h1 span{color:#8d9db4;font-weight:500}
+.page-heading p{font-size:12px;color:#8190a6;margin-top:9px}
+.btn-secondary,.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;border-radius:8px;padding:10px 14px;font-size:11px;font-weight:600;transition:all .2s}
+.btn-secondary{color:#bdc9d9;background:#121e2f;border:1px solid #2a3b52}
+.btn-secondary:hover:not(:disabled){border-color:#53657b;background:#17263a}
+.btn-primary{color:#061a17;background:#5ee0b5;border:1px solid #5ee0b5;box-shadow:0 5px 20px #5ee0b514}
+.btn-primary:hover:not(:disabled){background:#82edcc;transform:translateY(-1px)}
+.btn-primary span{margin-left:auto;font-size:15px}
+.feedback{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:8px;margin-bottom:16px;font-size:12px}
+.feedback button{margin-left:auto;background:none;border:0;color:inherit;font-size:20px}
+.feedback.error{background:#3a1d29;border:1px solid #693245;color:#ffb7c4}
+.feedback.success{background:#142f2c;border:1px solid #28564b;color:#91f0ce}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:18px}
+.metric-card,.panel{background:#101a2a;border:1px solid #202f44;border-radius:12px;box-shadow:0 10px 40px #0000000a}
+.metric-card{padding:18px 19px 17px;min-height:139px}
+.metric-top{display:flex;align-items:center;justify-content:space-between;color:#91a0b5;font-size:11px}
+.metric-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:9px}
+.metric-icon.blue{color:#81b7ff;background:#192d49}
+.metric-icon.amber{color:#f7c66c;background:#392e1c}
+.metric-icon.mint{color:#5ee0b5;background:#16332f}
+.metric-value{font-family:Manrope,sans-serif;font-size:31px;letter-spacing:-.04em;font-weight:700;margin-top:9px;display:flex;align-items:center;gap:8px}
+.metric-change{display:grid;place-items:center;width:21px;height:21px;border-radius:6px}
+.metric-change.amber{color:#f7c66c;background:#392e1c}
+.metric-change.mint{color:#5ee0b5;background:#16332f}
+.metric-foot{display:flex;align-items:center;gap:7px;color:#72839a;font-size:10px;margin-top:6px}
+.metric-foot-dot{width:5px;height:5px;border-radius:50%}
+.metric-foot-dot.blue{background:#81b7ff}.metric-foot-dot.amber{background:#f7b955}.metric-foot-dot.mint{background:#5ee0b5}
+.content-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;margin-bottom:18px}
+.panel{padding:21px 22px}
+.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.panel-head h2{font-family:Manrope,sans-serif;font-size:16px;letter-spacing:-.025em;margin-top:6px;font-weight:700}
+.live-pill,.state-pill{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:5px;font:9px 'DM Mono',monospace;letter-spacing:.05em}
+.live-pill{color:#6be1bc;background:#15302c;border:1px solid #26483f}
+.live-pill span,.state-pill span{width:5px;height:5px;border-radius:50%;background:currentColor}
+.product-line{display:flex;align-items:center;gap:12px;margin-top:25px;padding-bottom:22px;border-bottom:1px solid #223047}
+.product-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:10px;background:#182a40;color:#8ebaff}
+.product-meta{display:flex;flex-direction:column;gap:5px}
+.product-meta strong{font-size:12px;font-weight:600}
+.product-meta span{font:10px 'DM Mono',monospace;color:#8191a7}
+.sku-tag{margin-left:auto;padding:5px 7px;border:1px solid #2c3b50;border-radius:5px;font:9px 'DM Mono',monospace;color:#8191a7}
+.allocation{padding:20px 0 18px}
+.allocation-title{display:flex;justify-content:space-between;font-size:11px;color:#92a0b4;margin-bottom:11px}
+.allocation-title strong{font:11px 'DM Mono',monospace;color:#d6e0ed}
+.progress-track{height:7px;background:#26354a;border-radius:8px;overflow:hidden}
+.progress-value{height:100%;background:linear-gradient(90deg,#4bbf9b,#77e5c4);border-radius:8px;transition:width .4s ease}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px}
+.legend span{display:flex;align-items:center;gap:6px;color:#8190a6;font-size:10px}
+.legend b{font-family:'DM Mono',monospace;color:#d7e1ef;font-weight:500;margin-left:3px}
+.legend-dot{width:6px;height:6px;border-radius:50%}.legend-dot.mint{background:#5ee0b5}.legend-dot.amber{background:#f7b955}
+.invariant-box{display:flex;align-items:center;gap:10px;padding:12px;border-radius:8px;background:#14252b;border:1px solid #233d42;color:#64dcb8}
+.invariant-box div{display:flex;flex-direction:column;gap:4px}
+.invariant-box strong{font-size:10px;font-weight:600}
+.invariant-box span{font-size:10px;color:#829c9d}
+.panel-foot{display:flex;justify-content:space-between;gap:10px;margin-top:18px;color:#718199;font-size:9px}
+.panel-foot>span:first-child{display:flex;align-items:center;gap:6px}
+.tiny-dot{width:5px;height:5px;border-radius:50%;background:#81b7ff}
+.reserve-form{display:flex;flex-direction:column;gap:14px;margin-top:23px}
+.reserve-form label{display:flex;flex-direction:column;gap:7px;font-size:10px;color:#98a8bd;font-weight:600}
+.reserve-form input{width:100%;height:39px;padding:0 11px;border:1px solid #2a3a51;border-radius:7px;background:#0c1524;color:#e4edf8;outline:none;font-size:11px}
+.reserve-form input:focus{border-color:#5ee0b5;box-shadow:0 0 0 3px #5ee0b514}
+.reserve-form input:disabled{color:#71839a;background:#0e1827}
+.quantity-control{display:flex;border:1px solid #2a3a51;border-radius:7px;overflow:hidden;background:#0c1524}
+.quantity-control input{border:0;border-radius:0;text-align:center;height:37px;font-family:'DM Mono',monospace}
+.quantity-control button{width:42px;flex:none;background:#162338;border:0;color:#c7d3e3;font-size:18px}
+.quantity-control button:hover{background:#20334d}
+.full-width{width:100%;margin-top:2px}
+.form-note{display:flex;align-items:center;justify-content:center;gap:6px;color:#73849b;font-size:9px;margin-top:-4px}
+.step-number{font:10px 'DM Mono',monospace;color:#6e829e}
+.reservation-panel{margin-bottom:18px;min-height:200px}
+.state-pill{border:1px solid #344056;color:#8190a6;background:#182337}
+.state-pill.active{color:#f7c66c;border-color:#5b4828;background:#332a1b}
+.state-pill.confirmed{color:#5ee0b5;border-color:#28564b;background:#15302c}
+.state-pill.expired{color:#ff9aaa;border-color:#693245;background:#3a1d29}
+.empty-state{min-height:125px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.empty-icon{width:37px;height:37px;display:grid;place-items:center;border-radius:10px;background:#18253a;color:#7f91aa;margin-bottom:9px}
+.empty-state strong{font-size:11px;font-weight:600}
+.empty-state p{font-size:10px;color:#7788a0;margin-top:6px}
+.reservation-details{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px;margin-top:23px}
+.reservation-id{display:flex;flex-direction:column;gap:7px;min-width:0}
+.reservation-id>span:first-child{font:9px 'DM Mono',monospace;color:#71839a;letter-spacing:.1em}
+.reservation-id strong{font:12px 'DM Mono',monospace;color:#dce6f3;overflow-wrap:anywhere}
+.reservation-id .subtext{font-size:10px;color:#8b9ab0}
+.timer-card{display:flex;align-items:center;gap:10px;padding:12px 15px;background:#30281b;border:1px solid #574426;border-radius:9px;color:#f7c66c;min-width:166px}
+.timer-card>div{display:flex;flex-direction:column;gap:4px}
+.timer-card span{font:8px 'DM Mono',monospace;letter-spacing:.1em;color:#bca16d}
+.timer-card strong{font:22px 'DM Mono',monospace;color:#f8d58d}
+.timer-card.urgent{animation:pulse 1s infinite}
+.reservation-actions{grid-column:1/-1;display:flex;justify-content:flex-end;gap:9px}
+.expired-note{grid-column:1/-1;display:flex;align-items:center;gap:7px;font-size:10px;color:#ffb1bf}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#66778e;font:9px 'DM Mono',monospace;padding:8px 1px}
+.footer b{color:#3b4a60;margin:0 5px}
+.footer>span:last-child{display:flex;align-items:center;gap:7px}
+.footer-dot{width:5px;height:5px;margin:0}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{box-shadow:0 0 0 4px #f7b95518}}
+@media(max-width:1100px){.sidebar{width:200px}.main-content{margin-left:200px}.page-wrap{padding:28px 24px}.topbar{padding:0 24px}.content-grid{grid-template-columns:1fr}.reserve-panel{min-height:auto}}
+@media(max-width:760px){.sidebar{position:static;width:auto;height:auto;padding:13px 17px;flex-direction:row;align-items:center;border-right:0;border-bottom:1px solid #1b293d}.brand-mark{width:34px;height:34px}.brand-copy{position:static;margin-left:10px}.sidebar-rule,.side-item,.sidebar-bottom{display:none}.main-content{margin-left:0}.topbar{height:52px;padding:0 17px}.page-wrap{padding:24px 16px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading .btn-secondary{width:100%}h1{font-size:28px}.metrics-grid{grid-template-columns:1fr;gap:10px}.metric-card{min-height:118px}.content-grid{gap:12px}.panel{padding:17px}.reservation-details{grid-template-columns:1fr}.timer-card{width:100%}.reservation-actions{grid-column:auto;flex-direction:column}.reservation-actions button{width:100%}.footer{align-items:flex-start;flex-direction:column;margin-top:15px}.env-pill{font-size:8px}.breadcrumb{font-size:10px}.topbar-right{gap:8px}}
