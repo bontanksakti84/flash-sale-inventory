@@ -137,11 +137,9 @@ function App() {
     <div className="min-h-screen bg-ink text-slate-100">
       <aside className="sidebar">
         <div className="brand-mark"><Command size={19} /></div>
-        <div className="brand-copy"><strong>FLASHPOINT</strong><span>INVENTORY OPS</span></div>
+        <div className="brand-copy"><strong>Flash Sale Inventory</strong><span>Ops Console</span></div>
         <div className="sidebar-rule" />
         <div className="side-item active"><Boxes size={18} /><span>Inventory</span></div>
-        <div className="side-item"><Activity size={18} /><span>Reservations</span><span className="side-count">LIVE</span></div>
-        <div className="side-item"><Database size={18} /><span>Database health</span></div>
         <div className="sidebar-bottom">
           <div className="status-dot" />
           <div><strong>API connection</strong><span>Polling every 5 seconds</span></div>
@@ -235,7 +233,7 @@ function App() {
             )}
           </section>
 
-          <footer className="footer"><span>FLASHPOINT <b>·</b> Inventory Operations Console</span><span><span className="footer-dot" /> API polling enabled <b>·</b> Demo environment</span></footer>
+          <footer className="footer"><span>T <b>·</b> Inventory Operations Console</span><span><span className="footer-dot" /> API polling enabled <b>·</b> Demo environment</span></footer>
         </div>
       </main>
     </div>
