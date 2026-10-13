@@ -24,9 +24,9 @@ Take-home assignment demo: Go + Gin + PostgreSQL backend and React + Vite + Type
 
 From the project root:
 
-```bash
+
 docker compose up --build
-```
+
 
 - Dashboard: http://localhost:5173
 - API: http://localhost:8080
@@ -44,31 +44,31 @@ PostgreSQL data persists in the Compose volume across container restarts.
 
 **Do not run `docker compose down -v` unless you intentionally want to delete the local PostgreSQL volume and its data.** For a normal restart, use:
 
-```bash
+
 docker compose restart
-```
+
 
 To stop the services without deleting persisted database data:
 
-```bash
+
 docker compose down
-```
+
 
 ## Run frontend separately (optional)
 
 Start PostgreSQL and the backend first, then run:
 
-```bash
+
 cd frontend
 npm install
 npm run dev
-```
+
 
 The frontend uses `VITE_API_BASE_URL` to configure the API URL. For local development, the default is `http://localhost:8080`. Override it by creating `frontend/.env.local` if needed:
 
-```env
+##env
 VITE_API_BASE_URL=http://localhost:8080
-```
+
 
 Restart the Vite development server after changing environment variables.
 
@@ -76,20 +76,20 @@ Restart the Vite development server after changing environment variables.
 
 Start PostgreSQL:
 
-```bash
+
 docker compose up -d postgres
-```
+
 
 Then run the backend from another terminal:
 
-```bash
+
 cd backend
 go mod tidy
 
 DATABASE_URL='postgres://inventory:inventory_dev_password@localhost:5432/inventory?sslmode=disable' \
 APP_ADDR=':8080' \
 go run ./cmd/server
-```
+
 
 Ensure the database schema migrations have been applied before starting the backend. The `DATABASE_URL` above targets the local development database, not the test database.
 
@@ -99,7 +99,7 @@ Ensure the database schema migrations have been applied before starting the back
 
 Every reservation request must include an `idempotency_key`. Generate a new unique key for each logically new reservation, and reuse the same key when retrying that reservation after a timeout or an ambiguous network/commit outcome.
 
-```bash
+
 curl -i http://localhost:8080/api/v1/inventory/reserve \
   -H 'Content-Type: application/json' \
   -d '{
@@ -108,7 +108,7 @@ curl -i http://localhost:8080/api/v1/inventory/reserve \
     "item_id": "item_4021",
     "quantity": 2
   }'
-```
+
 
 A new reservation returns `201 Created`. Retrying the same request with the same key and payload returns the existing reservation rather than allocating stock a second time. Reusing that key with a different payload returns `409 Conflict`.
 
@@ -118,39 +118,39 @@ The example key above is for demonstration. If you already used it with differen
 
 Replace the placeholder with the `reservation_id` returned by the reserve endpoint:
 
-```bash
+
 curl -i http://localhost:8080/api/v1/inventory/confirm \
   -H 'Content-Type: application/json' \
   -d '{"reservation_id":"res_REPLACE_WITH_ID"}'
-```
+
 
 A reservation can only be confirmed while active and unexpired. A repeated confirmation is not treated as a successful new confirmation; the API returns a conflict response.
 
 ### Check stock
 
-```bash
+
 curl -i 'http://localhost:8080/api/v1/inventory/stock?item_id=item_4021'
-```
+
 
 ## Tests
 
 Run backend tests from the backend directory:
 
-```bash
+
 cd backend
 go test -race -count=1 -v ./...
-```
+
 
 Tests requiring PostgreSQL use `TEST_DATABASE_URL`. Configure it to point to a dedicated test database named `inventory_test`, with the required schema migrations applied.
 
 For example, with the Compose PostgreSQL service running and the test database already created and migrated:
 
-```bash
+
 cd backend
 
 TEST_DATABASE_URL='postgres://inventory:inventory_dev_password@localhost:5432/inventory_test?sslmode=disable' \
 go test -race -count=1 -v ./cmd/server
-```
+
 
 The integration tests cover concurrent reservations, expiry cleanup, confirmation, reservation idempotency, and request validation. They must not be pointed at production data or the main development database.
 
